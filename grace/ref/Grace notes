@@ -1,0 +1,19 @@
+Grace Notes
+
+Import ASCII Data - data should be text file, in columns, X first, then Y.  Spaces between values, with return between lines.  gnumeric works well for exporting text data, as it automatically brings up a wizard to select delimiters.
+
+Remove data - Edit, Data Sets - select data set and use Edit, Kill Data in Data Set window
+
+Format axis labels with commas - Axes window, Special tab - select Special ticks to "Tick marks and labels".  Manually edit the right hand column (labels) to get the format you want.
+
+Multi-line text annotation - Window, Drawing Objects.  Use text button.  It only shows one line, but carriage returns are inserted in the text with "\n".  
+
+Editing text size in drawing objects - the text size slider can't be selected with the mouse.  But you can use the Tab key to select it and then use the left and right arrow keys to change it.
+
+To save graph as graphics file - View, Page Setup..., Device pop-up.  If you want more dpi, be sure to select the Options, Rescale Plot on Page Size change before changing the dpi.
+
+Saving as PS seems to work better than EPS.  Try 
+
+Import via gaiw - put variable names and units in rows at top of spreadsheet, these lines are called a header.  Indicate the number of header lines, and which ones are names and units in the File Options tab.
+
+Note - as GAIW needs spaces to delimit data, column names cannot have spaces.  Use underscores.  The variable names can be edited in GAIW, in the pane at the lower right of the window.

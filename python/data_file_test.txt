@@ -1,0 +1,23 @@
+RV-8 C-GNHK Flight Test Data from 21:14 12 Apr 2006
+
+Time	Elapsed Time	Unix Time	Discretes Time	Event Marker	D10A Time	Hr	Mn	Sec	fractions of sec	Pitch	Bank	Heading	IAS	Baro Altitude	Yaw rate	Ny	Nz	EIS4000 Time	RPM	MP	OAT	Fuel Flow	Fuel Qty	CHT 1	CHT 2	CHT 3	CHT 4	EGT 1	EGT 2	EGT 3	EGT 4	Oil Temp	Oil Press	Volt	Alternator Load	Hour Meter	Hrs	Min	Sec	Hours End	Min End	Unit Temp	GNS430 Time	Grd Speed	Track	GPS Altitude	Latitude	Longitude	Desired Track	Cross Track Error	Active Waypoint	Distance to Waypoint	Bearing to Waypoint	Magnetic Variation	Distance to Destination	GPS Nav Status	GPS Waypoints
+(H:M:S)	(seconds)	(seconds)	(seconds)	(1 = Event)	(seconds)	(Hr)	(Mn)	(Sec)	(1/64 sec)	(deg)	(deg)	(deg mag)	(KIAS)	(ft)	(deg/s)	(g)	(g)	(seconds)	(RPM)	(in HG)	(deg C)	(USG/hr)	(USG)	(deg C)	(deg C)	(deg C)	(deg C)	(deg C)	(deg C)	(deg C)	(deg C)	(deg C)	(psi)	(volt)	(amp)	(hr)	(hr)	(mn)	(s)	(hr)	(mn)	(deg C)	(seconds)	(kt)	(deg mag)	(ft)	(deg N)	(deg W)	(deg mag)	(nm R)	()	(nm)	(deg mag)	(deg E)	(nm)	(1 = Valid)	()
+50.50	7.0	1144890890.5	1144890890.52	0	
+51.00	7.5	1144890891.0	1144890891.01	0	
+51.50	8.0	1144890891.5	1144890891.5	0	
+52.00	8.5	1144890892.0	1144890892.0	0	
+52.50	9.0	1144890892.5	1144890892.51	0	
+53.00	9.5	1144890893.0	1144890893.02	0	
+53.50	10.0	1144890893.5	1144890893.5	0	
+54.00	10.5	1144890894.0	1144890894.01	0	
+54.50	11.0	1144890894.5	1144890894.51	0	
+55.00	11.5	1144890895.0	1144890895.02	0	
+55.50	12.0	1144890895.5	1144890895.51	0	
+56.00	12.5	1144890896.0	1144890896.01	0	
+56.50	13.0	1144890896.5	1144890896.51	0	
+57.00	13.5	1144890897.0	1144890897.02	0	
+57.50	14.0	1144890897.5	1144890897.5	0	
+58.00	14.5	1144890898.0	1144890898.07	0	
+58.50	15.0	1144890898.5	1144890898.52	0	
+59.00	15.5	1144890899.0	1144890899.01	0	
+59.50	16.0	1144890899.5	1144890899.5	0	

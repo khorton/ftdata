@@ -1,0 +1,50 @@
+fe ff fe 00 00 00 09 00  09 00 09 00 08 00 0d 00 
+0c 00 10 00 0e 00 0f 00  0d 00 0d 00 0d 01 43 04 
+fc 00 00 00 00 00 73 00  00 12 e4 00 e4 00 11 00 
+01 26 00 00 00 00 00 00  00 0f 00 00 00 00 00 00 
+00 00 00 00 00 00 00 6c  2b 
+
+fe ff fe header
+
+HEX   Decimal  item
+00 00    0     tach
+00 09    9     cht 1
+00 09    9     cht 2
+00 09    9     cht 3
+00 08    8     cht 4
+00 0d   13     cht 5 (not connected)
+00 0c   12     cht 6 (not connected)
+00 10   16     egt 1
+00 0e   14     egt 2
+00 0f   15     egt 3
+00 0d   13     egt 4
+00 0d   13     egt 5 (not connected)
+00 0d   13     egt 6 (not connected)
+01 43          daux1 - reserved
+04 fc          daux2 - reserved
+00 00    0     airspeed
+00 00    0     altitude
+00 73  115     voltage (in tenths of a volt)
+00 00    0     fuel flow
+12      18     internal temp
+e4       ?     carb temp - 2's compliment (not conected)
+00       0     vert speed - 100 fpm resolution 2's compliment (not conected)
+e4       ?     OAT - 2's compliment (not conected)
+00 11   17     Oil temp
+00       0     Oil press
+01 26  294     Aux 1 - manifold pressure, tenths of an inch?  to be confirmed
+00 00    0     Aux 2
+00 00    0     Aux 3
+00 00    0     Aux 4
+00 0f   15     Coolant temp (not connected)
+00 00    0     Hourmeter
+00 00    0     Fuel Qty
+00       0     Flt timer - hours
+00       0     Flt timer - minutes
+00       0     Flt timer - seconds
+00       0     Fuel time to empty - hours
+00       0     Fuel time to empty - minutes
+00 00    0     Baroset
+00 00    0     Mag heading
+6c             Spare
+2b             Checksum

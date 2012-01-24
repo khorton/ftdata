@@ -1,0 +1,39 @@
+To Do:
+
+1. EIS4000.py - missing meat of grab data function.
+
+2. when stopping recording, get exception:
+
+EFIS data recording stopping
+* 443
+Data recording stopping within 20 seconds.
+Discretes data recording stopping
+Exception in thread Thread-4:
+Traceback (most recent call last):
+  File "/sw/lib/python2.5/threading.py", line 486, in __bootstrap_inner
+    self.run()
+  File "record_ftdata.py", line 367, in run
+    grab_discrete_data(test_mode, data_rate, duration, serial_list, outputs, )
+  File "/Users/kwh/sw_projects/hg/ftdata/python/discretes.py", line 72, in grab_discrete_data
+    outputs['Discretes'].write(data_string)
+ValueError: I/O operation on closed file
+
+^C^CException in thread Thread-3:
+Traceback (most recent call last):
+  File "/sw/lib/python2.5/threading.py", line 486, in __bootstrap_inner
+    self.run()
+  File "record_ftdata.py", line 363, in run
+    grab_gns_data(test_mode, data_rate, duration, serial_list, outputs, )
+  File "/Users/kwh/sw_projects/hg/ftdata/python/gns430.py", line 657, in grab_gns_data
+    data_chunk = data_source.read(block_size)
+  File "/sw/lib/python2.5/site-packages/serial/serialposix.py", line 278, in read
+    buf = os.read(self.fd, size-len(read))
+OSError: [Errno 6] Device not configured
+
+Exception exceptions.KeyboardInterrupt in <module 'threading' from '/sw/lib/python2.5/threading.pyc'> ignored
+
+
+
+3. Add easy way to stop recording.
+
+4. Change default data save directory to something logical

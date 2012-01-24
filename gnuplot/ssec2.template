@@ -1,0 +1,137 @@
+# template to plot SSEC data from sdl.pl in three plots per page
+
+# Note: The column numbers to plot are equal to the data column + 1, as the
+#       space in the time column tricks gnuplot into seeing it as two columns
+
+
+{# List of plots, etc
+  #####################################################################
+  $plots_per_page = 6;
+  $default_page_label = "SSEC Data";
+
+  $num = 1;
+  $plot_xaxis[$num] = "Baro Altitude (ft)";
+  $plot_data[$num] = "D10A alt";
+  $plot_span[$num] = 50;
+  $plot_inc[$num] = 10;
+
+  $num++;
+  $plot_xaxis[$num] = "IAS (kt)";
+  $plot_data[$num] = "D10A IAS";
+  $plot_span[$num] = 5;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "Heading (\{/Symbol \260\} Mag)";
+  $plot_data[$num] = "EIS_4000 oat";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 2;
+  
+  $num++;
+  $plot_xaxis[$num] = "GPS Ground Speed (kt)";
+  $plot_data[$num] = "GNS430 grd spd";
+  $plot_span[$num] = 5;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "GPS Track (\{/Symbol \260\} Mag)";
+  $plot_data[$num] = "GNS430 track";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 2;
+
+  $num++;
+  $plot_xaxis[$num] = "OAT (\{/Symbol \260\}C)";
+  $plot_data[$num] = "EIS_4000 oat";
+  $plot_span[$num] = 5;
+  $plot_inc[$num] = 1;
+
+
+
+$return = "reset";
+}
+
+
+#####################################################################
+# preamble of gnuplot file
+
+
+set terminal postscript portrait 9 enhanced colour blacktext solid
+set output '{$output}.ps'
+
+set nokey; # turn off key in top right corner
+set lmargin 10; # needed to force fixed margin between edge of plot surface and axis.  Otherwise the y axis won't line up
+set rmargin 3
+
+set xdata time
+set timefmt "%d/%m/%Y %H:%M:%S"
+set format x "{$format_x}"
+set xrange ["{$start}":"{$end}"]
+set xtics {$increment}
+set mxtics {$mxtics}
+set xlabel "{$xlabel}"
+
+
+set label 1 "RV-8 C-GNHK Flight {$flt} {$date}" at screen .05,1 front
+set label 2 "{if (!$plot_label){$plot_label = $default_page_label} else {$plot_label}}" at screen 1,1 center front
+set label 4 "One division = {$division_label}" at screen .05,-0.01 front
+
+set grid xtics mxtics ytics mxtics lw 2, lw 1
+
+# if dots are wanted, instead of lines, replace "with lines" with "with lines"
+# set pointsize 0.2
+
+{
+  $num_of_pages = int($num/$plots_per_page) + 1;
+  if ($num % $plots_per_page == 0) {
+    # The number of required plots divided by the number of plots per page is an integer.
+    # Adding 1 to the int() will yield one too many pages.  We need to decrement by 1.
+    $num_of_pages--;
+  }
+  $plot_size = 1/$plots_per_page;
+  $plot_offset = 0;
+  for ($page = 1; $page <= $num_of_pages; $page++) {
+    $plot_offset = ($page - 1) * $plots_per_page;
+    $OUT .= "#####################################################################\n";
+    $OUT .= "# page $page\n";
+    $OUT .= "set label 3 \"Page $page of $num_of_pages\" at screen 1,-.01 right front\n";
+    $OUT .= "set multiplot;\nset size 1.05,$plot_size\n";
+    $OUT .= "# there is an offset of two in the columns between the data and how gnuplot parses them.\n\n";
+    $ploty = 1;
+    $plot_num_start = 1 + $plot_offset;
+    $plot_num_end = $plot_num_start + $plots_per_page - 1;
+    # check to see if $plot_num_end is higher than the highest in the template
+    if ($plot_num_end > $#plot_data) {
+      $plot_num_end = $#plot_data;
+    }
+    for ($plot_num = $plot_num_start; $plot_num <= $plot_num_end; $plot_num++) {
+      $ploty = $ploty - $plot_size;
+      $OUT .= "set origin 0.0,$ploty;  set ylabel \"$plot_xaxis[$plot_num]\"\n";
+      # is this a special plot?  If so, pull the code from the definition higher up
+      if ($special_plot[$plot_num]) {
+        $OUT .= "$special_plot[$plot_num]\n";
+      } else {
+        # determine yrange, using smart autoscaling logic
+          $min_span = $plot_span[$plot_num];  # The y-axis must span at least this range
+          $inc = $plot_inc[$plot_num];        # The y-axis min and max are set in this increment
+          $column = $labels{$plot_data[$plot_num]};
+          
+          $min = (int (($min[$column])/$inc)) * $inc;
+          $max = (int ($max[$column]/$inc) + 1) * $inc;
+          $mean = $mean[$column];
+          while ( ($max - $ min) < $min_span ) {
+            if (($max - $mean) > ($mean - $min)) {
+              $min = $min - $inc;
+            } else {
+              $max = $max + $inc;
+            }
+          } 
+          $yrange = $min . ":" . $max;
+        $OUT .= "set yrange [$yrange]\n";
+        $gnuplot_column_to_plot = $column + 2;
+        $OUT .= "plot \'$datafile\' using 1:$gnuplot_column_to_plot with lines lt -1\n\n";
+      }
+    }
+    $OUT .= "unset multiplot\n\n";
+  }
+}
+  

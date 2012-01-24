@@ -1,0 +1,319 @@
+# template to plot climb data from sdl.pl in multiple plots per page
+
+# Note: The column numbers to plot are equal to the data column + 1, as the
+#       space in the time column tricks gnuplot into seeing it as two columns
+
+{# List of plots, etc
+  #####################################################################
+  $plots_per_page = 5;
+  $default_page_label = "Engine Data";
+
+  $num = 1;
+  $plot_xaxis[$num] = "Baro Altitude (ft)";
+  $plot_data[$num] = "Baro Altitude";
+  $plot_span[$num] = 1000;
+  $plot_inc[$num] = 500;
+
+  $num++;
+  $plot_xaxis[$num] = "IAS (kt)";
+  $plot_data[$num] = "IAS";
+  $plot_span[$num] = 30;
+  $plot_inc[$num] = 10;
+
+  $num++;
+  $plot_xaxis[$num] = "OAT (\{/Symbol \260\}C)";
+  $plot_data[$num] = "OAT";
+  $plot_span[$num] = 5;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "RPM (n/mn)";
+  $plot_data[$num] = "RPM";
+  $plot_span[$num] = 100;
+  $plot_inc[$num] = 10;
+
+  $num++;
+  $plot_xaxis[$num] = "Manifold Pressure (in HG)";
+  $plot_data[$num] = "MP";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 1;
+
+  #############################################################################
+  # This is a special format plot, with all 4 CHT, in different colours
+  $num++;
+  $plot_xaxis[$num] = "CHT (\{/Symbol \260\}C)";
+  $plot_data[$num] = "";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+  $special_plot[$num] = "set key bottom\n";
+  $special_plot[$num] .= "set yrange [";
+    $min_span = $plot_span[$num];  # The y-axis must span at least this range
+    $inc = $plot_inc[$num];        # The y-axis min and max are set in this increment
+    $column1 = $labels{'CHT 1'};
+    $column2 = $labels{'CHT 2'};
+    $column3 = $labels{'CHT 3'};
+    $column4 = $labels{'CHT 4'};
+  # find the maximum of the four CHTs in the time slice
+    $max_cht = $max[$labels{'CHT 1'}];
+    $max_cht = $max[$labels{'CHT 2'}] if ($max[$labels{'CHT 2'}] > $max_cht);
+    $max_cht = $max[$labels{'CHT 3'}] if ($max[$labels{'CHT 3'}] > $max_cht);
+    $max_cht = $max[$labels{'CHT 4'}] if ($max[$labels{'CHT 4'}] > $max_cht);
+  
+  # find the minimum of the four CHTs in the time slice
+    $min_cht = $min[$labels{'CHT 1'}];
+    $min_cht = $min[$labels{'CHT 2'}] if ($min[$labels{'CHT 2'}] < $min_cht);
+    $min_cht = $min[$labels{'CHT 3'}] if ($min[$labels{'CHT 3'}] < $min_cht);
+    $min_cht = $min[$labels{'CHT 4'}] if ($min[$labels{'CHT 4'}] < $min_cht);
+    
+    # following lines are the same for every plot
+    $min = (int (($min_cht)/$inc)) * $inc;
+    $max = (int ($max_cht/$inc) + 1) * $inc;
+    $mean = $mean[$column];
+    while ( ($max - $ min) < $min_span ) {
+      if (($max - $mean) > ($mean - $min)) {
+        $min = $min - $inc;
+      } else {
+        $max = $max + $inc;
+      }
+    } 
+  $special_plot[$num] .= "$min" . ":" . "$max]\n";
+  $column1 = $column1 + 1;
+  $column2 = $column2 + 1;
+  $column3 = $column3 + 1;
+  $column4 = $column4 + 1;
+  $special_plot[$num] .= "plot '' using 1:$column1 with lines lt 7 title 'CHT 1',\\
+      '' using 1:$column2 with lines lt 1 title 'CHT 2',\\
+      '' using 1:$column3 with lines lt 2 title 'CHT 3',\\
+      '' using 1:$column4 with lines lt 3 title 'CHT 4';\n";
+  $special_plot[$num] .= "unset key\n";
+  #############################################################################
+  
+  $num++;
+  $plot_xaxis[$num] = "CHT 1 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "CHT 1";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "CHT 2 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "CHT 2";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "CHT 3 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "CHT 3";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "CHT 4 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "CHT 4";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+  
+  #############################################################################
+  # This is a special format plot, with all 4 EGT, in different colours
+  $num++;
+  $plot_xaxis[$num] = "EGT (\{/Symbol \260\}C)";
+  $plot_data[$num] = "";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+  $special_plot[$num] = "set key bottom\n";
+  $special_plot[$num] .= "set yrange [";
+    $min_span = $plot_span[$num];  # The y-axis must span at least this range
+    $inc = $plot_inc[$num];        # The y-axis min and max are set in this increment
+    $column1 = $labels{'EGT 1'};
+    $column2 = $labels{'EGT 2'};
+    $column3 = $labels{'EGT 3'};
+    $column4 = $labels{'EGT 4'};
+  # find the maximum of the four EGTs in the time slice
+    $max_egt = $max[$labels{'EGT 1'}];
+    $max_egt = $max[$labels{'EGT 2'}] if ($max[$labels{'EGT 2'}] > $max_egt);
+    $max_egt = $max[$labels{'EGT 3'}] if ($max[$labels{'EGT 3'}] > $max_egt);
+    $max_egt = $max[$labels{'EGT 4'}] if ($max[$labels{'EGT 4'}] > $max_egt);
+  
+  # find the minimum of the four EGTs in the time slice
+    $min_egt = $min[$labels{'EGT 1'}];
+    $min_egt = $min[$labels{'EGT 2'}] if ($min[$labels{'EGT 2'}] < $min_egt);
+    $min_egt = $min[$labels{'EGT 3'}] if ($min[$labels{'EGT 3'}] < $min_egt);
+    $min_egt = $min[$labels{'EGT 4'}] if ($min[$labels{'EGT 4'}] < $min_egt);
+    
+    # following lines are the same for every plot
+    $min = (int (($min_egt)/$inc)) * $inc;
+    $max = (int ($max_egt/$inc) + 1) * $inc;
+    $mean = $mean[$column];
+    while ( ($max - $ min) < $min_span ) {
+      if (($max - $mean) > ($mean - $min)) {
+        $min = $min - $inc;
+      } else {
+        $max = $max + $inc;
+      }
+    } 
+  $special_plot[$num] .= "$min" . ":" . "$max]\n";
+  $column1 = $column1 + 1;
+  $column2 = $column2 + 1;
+  $column3 = $column3 + 1;
+  $column4 = $column4 + 1;
+  $special_plot[$num] .= "plot '' using 1:$column1 with lines lt 7 title 'EGT 1',\\
+      '' using 1:$column2 with lines lt 1 title 'EGT 2',\\
+      '' using 1:$column3 with lines lt 2 title 'EGT 3',\\
+      '' using 1:$column4 with lines lt 3 title 'EGT 4';\n";
+  $special_plot[$num] .= "unset key\n";
+  #############################################################################
+
+  $num++;
+  $plot_xaxis[$num] = "EGT 1 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "EGT 1";
+  $plot_span[$num] = 20;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "EGT 2 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "EGT 2";
+  $plot_span[$num] = 20;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "EGT 3 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "EGT 3";
+  $plot_span[$num] = 20;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "EGT 4 (\{/Symbol \260\}C)";
+  $plot_data[$num] = "EGT 4";
+  $plot_span[$num] = 20;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "Fuel Flow (USG/hr)";
+  $plot_data[$num] = "Fuel Flow";
+  $plot_span[$num] = 5;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "Fuel Remaining (USG)";
+  $plot_data[$num] = "Fuel Qty";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 2;
+
+  $num++;
+  $plot_xaxis[$num] = "Ess Bus Voltage (volt)";
+  $plot_data[$num] = "Volt";
+  $plot_span[$num] = 2;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "Alternator Load (amp)";
+  $plot_data[$num] = "Alternator Load";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 5;
+
+  $num++;
+  $plot_xaxis[$num] = "EIS Internal Temperature (\{/Symbol \260\}C)";
+  $plot_data[$num] = "Unit Temp";
+  $plot_span[$num] = 5;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "Oil Temperature (\{/Symbol \260\}C)";
+  $plot_data[$num] = "Oil Temp";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 1;
+
+  $num++;
+  $plot_xaxis[$num] = "Oil Pressure (lb/in^2)";
+  $plot_data[$num] = "Oil Press";
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 1;
+
+
+$return = "reset";
+}
+
+
+#####################################################################
+# preamble of gnuplot file
+
+
+set terminal postscript portrait 9 enhanced colour blacktext solid
+set output '{$output}.ps'
+
+set nokey; # turn off key in top right corner
+set lmargin 10; # needed to force fixed margin between edge of plot surface and axis.  Otherwise the y axis won't line up
+set rmargin 3
+
+set xdata time
+set timefmt "%H:%M:%S"
+set format x "{$format_x}"
+set xrange ["{$start}":"{$end}"]
+set xtics {$increment}
+set mxtics {$mxtics}
+set xlabel "{$xlabel}"
+  
+set label 1 "RV-8 C-GNHK Flight {$flt} {$date}" at screen .05,1 front
+set label 2 '{if (!$plot_label){$plot_label = $default_page_label} else {$plot_label}}' at screen 1,1 center front
+set label 4 "One division = {$division_label}" at screen .05,-0.01 front
+
+set grid xtics mxtics ytics mxtics lw 2, lw 1
+
+# if dots are wanted, instead of lines, replace "with lines" with "with lines"
+# set pointsize 0.2
+
+{
+  $num_of_pages = int($num/$plots_per_page) + 1;
+  if ($num % $plots_per_page == 0) {
+    # The number of required plots divided by the number of plots per page is an integer.
+    # Adding 1 to the int() will yield one too many pages.  We need to decrement by 1.
+    $num_of_pages--;
+  }
+  print "number of pages is $num_of_pages\n";
+  $plot_size = 1/$plots_per_page;
+  $plot_offset = 0;
+  for ($page = 1; $page <= $num_of_pages; $page++) {
+    $plot_offset = ($page - 1) * $plots_per_page;
+    $OUT .= "#####################################################################\n";
+    $OUT .= "# page $page\n";
+    $OUT .= "set label 3 \"Page $page of $num_of_pages\" at screen 1,-.01 right front\n";
+    $OUT .= "set multiplot;\nset size 1.05,$plot_size\n";
+    $OUT .= "# there is an offset of two in the columns between the data and how gnuplot parses them.\n\n";
+    $ploty = 1;
+    $plot_num_start = 1 + $plot_offset;
+    $plot_num_end = $plot_num_start + $plots_per_page - 1;
+    # check to see if $plot_num_end is higher than the highest in the template
+    if ($plot_num_end > $#plot_data) {
+      $plot_num_end = $#plot_data;
+    }
+    for ($plot_num = $plot_num_start; $plot_num <= $plot_num_end; $plot_num++) {
+      $ploty = $ploty - $plot_size;
+      $OUT .= "set origin 0.0,$ploty;  set ylabel \"$plot_xaxis[$plot_num]\"\n";
+      # is this a special plot?  If so, pull the code from the definition higher up
+      if ($special_plot[$plot_num]) {
+        $OUT .= "$special_plot[$plot_num]\n";
+      } else {
+        # determine yrange, using smart autoscaling logic
+          $min_span = $plot_span[$plot_num];  # The y-axis must span at least this range
+          $inc = $plot_inc[$plot_num];        # The y-axis min and max are set in this increment
+          $column = $labels{$plot_data[$plot_num]};
+          
+          $min = (int (($min[$column])/$inc)) * $inc;
+          $max = (int ($max[$column]/$inc) + 1) * $inc;
+          $mean = $mean[$column];
+          while ( ($max - $ min) < $min_span ) {
+            if (($max - $mean) > ($mean - $min)) {
+              $min = $min - $inc;
+            } else {
+              $max = $max + $inc;
+            }
+          } 
+          $yrange = $min . ":" . $max;
+        $OUT .= "set yrange [$yrange]\n";
+        $gnuplot_column_to_plot = $column + 1;
+        $OUT .= "plot \'$datafile\' using 1:$gnuplot_column_to_plot with lines lt -1\n\n";
+      }
+    }
+    $OUT .= "unset multiplot\n\n";
+  }
+}
+  

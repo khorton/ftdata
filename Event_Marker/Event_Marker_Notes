@@ -1,0 +1,26 @@
+Flight Test Event Marker Notes
+
+RS-232 spec defines specific functions for each wire.  See:
+
+http://www.uwsg.iu.edu/usail/peripherals/serial/rs232/
+http://www.interfacebus.com/Design_Connector_RS232.html
+http://www.anotherurl.com/library/rs232.htm
+
+It seems that the Data Carrier Detect or Data Set Ready lines could be used for the Event Marker, as they could be steady high or low.
+
+But, there will be no synchronous data being sent.  Will this confuse Device::SerialPort?  No - it works.
+
+Device::SerialPort will export line status if the :STAT tag is set.  See the docs.
+
+Test on 8 March 2005:
+
+    works with MS_RLSD_ON for a signal on pin 1, with ground as pin 5
+    works with MS_DSR_ON for a signal on pin 6, with ground as pin 5
+    works with MS_CTS_ON for a signal on pin 8, with ground as pin 5
+    works with MS_RING_ON for a signal on pin 9, with ground as pin 5
+    
+    So, could in principle use one serial port to monitor up to four discretes
+    The signal is sensed when there is voltage on the pin in question.
+    
+    Use one signal for an event marker, one for boost pump (to look for coorelation
+    between boost pump ON, fuel pressure and fuel flow).

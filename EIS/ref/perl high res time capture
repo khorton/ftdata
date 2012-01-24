@@ -1,0 +1,53 @@
+Subject:      Re: Perl performance?
+From:         Isaac Mushinsky <imush@mail.ru>
+Newsgroups:   comp.lang.perl
+Date:         Sun, 21 Sep 2003 03:51:41 -0400
+
+Kevin Horton wrote:
+
+> I'm a perl newbie, with next to no programming experience (I did a bunch
+> of Fortran 25 years ago, but nothing since).
+> 
+> I have a problem I need to solve, and I'm wondering whether perl is the
+> best tool.  I need to log a fairly fast data stream to a file, after
+> adding a time stamp to the end of each line.  The data is ASCII text,
+> and will be coming into a serial port on a laptop.  The data stream is
+> at 115,200 baud, with 64 lines per second, each line being 40 to 45
+> characters long.  I'm not sure yet what format the line ends are.
+> 
+> I've successfully logged the data using a Windows terminal program, but
+> I really need to add a time stamp to each line, so I can sync the data
+> up with another data stream when I do the post processing.  I think I
+> could use the Win32::SerialPort module to get the data into perl, have
+> it parse the data looking for line ends, add a time stamp to the end of
+> each line and log the line to a file.
+> 
+> Win32::SerialPort info:
+> 
+> http://members.aol.com/Bbirthisel/SerialPort.html
+> 
+> I realize that the time stamps will only have a resolution of one
+> second, but I figure that when I do the post processing I could look for
+> the records where the time stamp changed seconds, and then count records
+> to infer the time for each one.  I don't need super high accuracy.  Plus
+> or minus a half second will be more than good enough.
+> 
+> The only laptop I currently have available that has a serial port is a
+> Dell PIII 500 running Win 98.  I can't put Linux on it, as it belongs to
+> my wife, and she needs Win 98 for some business applications.  Is it
+> likely that a perl program would have enough performance to deal with
+> data at 115,200 baud, with 64 records per second?
+> 
+> I'm tempted to try perl as it seems to be general purpose enough that I
+> could use my new perl skills for all kinds of other things.  But, if
+> perl likely won't be up to the task I'll look into using a compiled
+> language.
+> 
+> Thanks for your advice,
+> 
+> 
+If it's a serial port, the stream cannot be that fast by modern standards.
+Any language will do fine, perl is probably easier to start with than,
+say, C. You can have timestamps of any precision with Time::HiRes module
+(look at CPAN), or you may call gettimeofday() via syscall (I am not sure
+if Windows has this function but most probably it does).

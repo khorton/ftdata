@@ -1,0 +1,30 @@
+EIS data capture notes  
+
+Data characteristics
+  Exactly 15 minutes of good raw data recorded by Zterm - /Users/kwh/ftdata/EIS/EIS_15_mn_1-22-05.data
+  756,009 bytes = 738k.  Need to read at least 150 bytes at a time to ensure that one good contiguous record is found in each chunk.  Can get 5039 records in 15 minutes, or a max data rate of 5.6 records per second.  The raw data output is probably around 11 hz.  Each record is 73 bytes, including the header, checksum and the spare byte.
+  
+  The data rate = 840 bytes/s, or 0.0012 seconds per byte, or 1.2 ms per byte.
+  
+  
+History
+25 Jan 05 - EIStest.pl rev 8 - first successful recording of raw data from EIS to PowerBook with no bad checksums.
+28 Jan 05 - EIStest.pl rev 9 - reworked to use tied filehandles, and to also read data from a raw data file for testing.
+30 Jan 05 - EIStest.pl rev 10 - first successful recording of data at a desired data rate, then decoding it and writing it to disk with Hi-Res time tag.
+
+
+Using data
+Gnumeric will open the data files directly, putting each parametre in its own column.
+
+
+To do:
+  What does $PortObj->purge_rx; do?
+  
+  Add config file that specifies which parametres should be written to disk.
+  
+  Add command line switch for data rate.
+  
+  Create watchdog program to start a new process if the original one dies or hangs up.
+    
+
+

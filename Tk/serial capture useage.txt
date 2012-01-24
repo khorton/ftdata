@@ -1,0 +1,12 @@
+I attached a raw serial capture program. Usage:
+serialcapture.pl filename serialport baudrate 
+
+serialcapture.pl GNS430_raw_data_capture_20050310.dat /dev/tty.USA49W1b1P3.3 9600
+
+Mike,
+
+Here is some GNS430 data captured using your serialcapture.pl script.  I've included two files.  The file GNS430_raw_data_capture_20050310.dat is from your script, with Ctrl-C hit after 45 seconds.
+
+I found that if I hit Ctrl-C too quickly (e.g. after 30 seconds), that no data was recorded.  I think it is buffered before writing to disk, and if you quit before the output buffer fills you get nothing.  I noted that data is first written to disk about 35 seconds after the script starts.
+
+I modified your script to have it run for exactly 30 seconds, then exit.  It seems to flush the output buffer before exiting, so we get exactly 30 seconds of data.  I wanted to do that so I could dissect it to see what the data rate was (I haven't done that yet - it is on the to-do list for this weekend).  The file GNS430_raw_data_capture_20050310-2.dat is from the modified script, with 30 seconds of record time.

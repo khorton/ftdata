@@ -1,0 +1,60 @@
+Trying to record GNS430 RS232 data
+
+Using RS-232 port 2, aviation format
+
+  Out connected to DB-9 pin 2
+  Panel ground connected to DB-9 pin 5
+
+  No data received
+
+Hooked up GNS Out to 2 and GNS-In to 3
+  Got apparently garbled data at 9600 (file at 2004-05-10-2023)
+  and 4800 (2024)
+
+  Messed around with 2400 to 19200 baud, various parity, etc.
+  Couldn't get good looking data
+  
+Aviation Data Format
+  See Garmin 400 Series Installation Manual, Appendix C (around page 115).
+  9600 baud.
+  
+  Each record starts with a "02" hex, and ends with a "03" hex.
+  Each sentence starts with a specific letter, to identify the sentence type, followed by a specific data set.  Each sentence ends with a "0d" hex (there is also supposed to be a "0a" hex, but it seems to be missing).
+  
+  Sentence types and format:
+  
+  Two basic sentence types, Type 1 and Type 2.  Type 1 starts with a single letter.  Type 2 starts with three letters.  The whole complement of Type 1 sentences seem to be sent every second.  The selection of Type 2 sentences sent varies depending on whether a route is being navigated or not.
+  
+  Type 1 Sentences (about 105 bytes total):
+  
+    Altitude - starts with "z", followed by five digits representing GPS altitude to the nearest foot.
+    
+    Latitude - starts with "A", followed by a "N" or "S", then a space ("20" hex), then two digits for degrees, a space, two digits for minutes then two digits for hundreds of minutes.
+    
+    Longitude - starts with a "B", followed by a "E" or "W", then a space, three digits for degrees,  a space, two digits for minutes then two digits for hundreds of minutes.
+    
+    Track, in whole degrees - starts with a "C", followed by three digits.
+    
+    Ground speed in knots - starts with a "D", followed by three digits.
+    
+    Distance to waypoint in tenths of a nm - starts with a "E", followed by five digits.
+    
+    Cross track error in hundreths of nm - starts with a "G", followed by an "R" or "L" then four digits.
+    
+    Desired track in tenths of a degree - starts with an "I", followed by four digits.
+    
+    Destination waypoint - starts with a "K", followed by up to five characters.  Blank filled on right with spaces if ID is less than five characters.
+    
+    Bearing to destination waypoint in tenths of a degree - starts with an "L", followed by four digits.
+    
+    Magnetic varation in tenths of a degree - starts with a "Q", followed by and "E" or "W" then three digits.
+    
+    Nav flag status - starts with a "S", followed by "----" (four "2d" hex), then either a "f" or "-".  "f" means nav flag shown.  "-" means nav is valid.
+    
+    Warnings status (not sure what this is) - starts with a "T", and is reported to always by nine dashes ("2d" hex).
+    
+    Distance to destination waypoint in tenths of a nm - starts with a "l" (lower case L) followed by six digits.
+    
+  Type 2 Sentences (total length of Type 2 fields will depend on contents of FPLN):
+  
+    The Type 2 sentences list the flight plan waypoints, their latitude, longitude and magnetic variation.  See Install Manual, pdf page 117.
