@@ -224,7 +224,7 @@ def parse_eis(data_block):
 # def grab_eis_data(test_mode, data_rate, duration, serial_list, outputs, queues):
 def grab_eis_data(test_mode, data_rate, duration, serial_list, outputs, ):
 	if test_mode == '1':
-		data_source = file('/Users/kwh/ftdata/Tk/EIS_raw_data.dat', 'rU')
+		data_source = file('/Users/kwh/sw_projects/git/ftdata/Tk/EIS_raw_data.dat', 'rU')
 	else:
 		data_source = serial_list['EIS4000']
 

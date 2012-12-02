@@ -28,7 +28,7 @@ if ($#ARGV >= 0) {
 }
     system ( "cd $TEMP_DIR; gnuplot *.gp" );
     if (-d "/home/kwh/hg/ftdata/gnuplot2") {system ( "cd $TEMP_DIR; /home/kwh/hg/ftdata/gnuplot2/ps2pdf_batch.pl *.ps" )}
-    elsif (-d "/Users/kwh/sw_projects/hg/ftdata/gnuplot2") {system ( "cd $TEMP_DIR; /Users/kwh/sw_projects/hg/ftdata/gnuplot2/ps2pdf_batch.pl *.ps" )}
+    elsif (-d "/Users/kwh/sw_projects/git/ftdata/gnuplot2") {system ( "cd $TEMP_DIR; /Users/kwh/sw_projects/git/ftdata/gnuplot2/ps2pdf_batch.pl *.ps" )}
     # system ( "cd $TEMP_DIR; ps2pdf_batch.pl *.ps" );
     # system ( "cd $TEMP_DIR; /Users/kwh/sw_projects/hg/ftdata/gnuplot2/ps2pdf_batch.pl *.ps" );
     system ( "cd $TEMP_DIR; cp *.pdf $SCRIPT_HOME" );
