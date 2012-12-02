@@ -27,12 +27,12 @@ HEX   Decimal  item
 00 73  115     voltage (in tenths of a volt)
 00 00    0     fuel flow
 12      18     internal temp
-e4       ?     carb temp - 2's compliment (not conected)
-00       0     vert speed - 100 fpm resolution 2's compliment (not conected)
-e4       ?     OAT - 2's compliment (not conected)
+e4       ?     carb temp - 2's compliment (not connected)
+00       0     vert speed - 100 fpm resolution 2's compliment (not connected)
+e4       ?     OAT - 2's compliment (not connected)
 00 11   17     Oil temp
 00       0     Oil press
-01 26  294     Aux 1 - manifold pressure, tenths of an inch?  to be confirmed
+01 26  294     Aux 1 - manifold pressure, tenths of an inch
 00 00    0     Aux 2
 00 00    0     Aux 3
 00 00    0     Aux 4
