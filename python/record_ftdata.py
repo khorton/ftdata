@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /sw/bin/python2.7
 
 # RV-8 data collection script
 #
