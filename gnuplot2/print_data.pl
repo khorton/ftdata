@@ -63,8 +63,8 @@ my $time_diff;            # length of time slice in seconds
 my ($format_x,$xlabel,$increment,$mxtics,$division_label); # x-axis settings
 my $template_location;
 
-if (-d "/home/kwh/hg/ftdata/gnuplot2/") {$template_location = "/home/kwh/hg/ftdata/gnuplot2/"}
-elsif (-d "/Users/kwh/sw_projects/hg/ftdata/gnuplot2/") {$template_location = "/Users/kwh/sw_projects/hg/ftdata/gnuplot2/"}
+if (-d "/home/kwh/git/ftdata/gnuplot2/") {$template_location = "/home/kwh/git/ftdata/gnuplot2/"}
+elsif (-d "/Users/kwh/sw_projects/git/ftdata/gnuplot2/") {$template_location = "/Users/kwh/sw_projects/git/ftdata/gnuplot2/"}
 
 # get the plot_list from the command line switch.
 if ($#ARGV >= 0) {
