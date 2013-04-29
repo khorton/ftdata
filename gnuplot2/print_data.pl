@@ -39,8 +39,8 @@ my @lines;
 my $date;
 my $flt;
 my $datafile;
-my $label_row = '4';      # number of the row with the labels in the data file
-my $col_max = "53";       # highest possible column number in the data
+my $label_row = '3';      # number of the row with the labels in the data file
+my $col_max = "57";       # highest possible column number in the data
 my $row_max;              # highest row number in data
 my @plots;
 my $plotnum = '0';
@@ -74,10 +74,10 @@ if ($#ARGV >= 0) {
     for (my $i = 1; $i <= $#ARGV; $i++) {
       push @plot_nums_to_create, $ARGV[$i] - 1; 
     }
-#     foreach (@plot_nums_to_create) {
-#       print "Create plot $_\n";
-#     }
-#     exit;
+    # foreach (@plot_nums_to_create) {
+    #   print "Create plot $_\n";
+    # }
+    # exit;
   }
 } else {
   die "Useage: print_data.pl plot_list.txt [optional list of plots]\n
@@ -159,7 +159,7 @@ foreach my $line (@lines) {
 # access data with $testdata[$row][$column]
 # rows start at 1.  Column A is 0, B is 1, etc.
 # The first row with real data is row 3 (in a complete data file).
-#  print "In sub smart_autoscale\n";
+ # print "In sub smart_autoscale\n";
   open(DATAFILE, "<$datafile"); # open for input
   @lines = <DATAFILE>;         # read file into list
   foreach my $line (@lines) {
