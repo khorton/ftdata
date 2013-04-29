@@ -168,7 +168,7 @@ set mxtics {$mxtics}
 set xlabel "{$xlabel}"
 
 set label 1 "RV-8 C-GNHK Flight {$flt} {$date}" at screen .05,1 front
-set label 2 '{if (!$plot_label){$plot_label = $default_page_label} else {$plot_label}}' at screen 1,1 center front
+set label 2 '{if (!$plot_label){$plot_label = $default_page_label} else {$plot_label}}' at screen 1.025,1 right front
 set label 4 "One division = {$division_label}" at screen .05,-0.01 front
 
 set grid xtics mxtics ytics mxtics lw 2, lw 1
@@ -189,7 +189,7 @@ set grid xtics mxtics ytics mxtics lw 2, lw 1
     $plot_offset = ($page - 1) * $plots_per_page;
     $OUT .= "#####################################################################\n";
     $OUT .= "# page $page\n";
-    $OUT .= "set label 3 \"Page $page of $num_of_pages\" at screen 1,-.01 right front\n";
+    $OUT .= "set label 3 \"Page $page of $num_of_pages\" at screen 1.025,-.01 right front\n";
     $OUT .= "set multiplot;\nset size 1.05,$plot_size\n";
     $OUT .= "# there is an offset of two in the columns between the data and how gnuplot parses them.\n\n";
     $ploty = 1;
