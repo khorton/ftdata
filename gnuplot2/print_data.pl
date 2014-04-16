@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/sw/bin/perl
 #
 # Script to create RV-8 flight test data plots.
 #   Works with the data format merge_ftdata.py.
@@ -135,7 +135,7 @@ foreach my $line (@lines) {
                                    end => $3, });
       }
       
-      if ($line =~ /^plot\s+(\w+)\s+["']([^"']+)["']\s+["']([^"']+)["']\s+label=[']([^']+)[']/) {
+      if ($line =~ /^plot\s+(\w+)\s+["']([^"']+)["']\s+["']([^"']+)["']\s+label=['"]([^']+)['"]/) {
         $plots[$plotnum] = ({ datafile => $datafile,
                                   date => $date,
                                    flt => $flt,
