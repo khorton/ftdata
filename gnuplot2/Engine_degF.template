@@ -23,8 +23,8 @@
   $num++;
   $plot_xaxis[$num] = "OAT (\{/Symbol \260\}F)";
   $plot_data[$num] = "OAT";
-  $plot_span[$num] = 5;
-  $plot_inc[$num] = 1;
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 2;
 
   $num++;
   $plot_xaxis[$num] = "RPM (n/mn)";
@@ -36,7 +36,7 @@
   $plot_xaxis[$num] = "Manifold Pressure (in HG)";
   $plot_data[$num] = "MP";
   $plot_span[$num] = 2;
-  $plot_inc[$num] = 0.5;
+  $plot_inc[$num] = 0.2;
 
   #############################################################################
   # This is a special format plot, with all 4 CHT, in different colours
@@ -213,8 +213,8 @@
   $num++;
   $plot_xaxis[$num] = "EIS Internal Temperature (\{/Symbol \260\}F)";
   $plot_data[$num] = "Unit Temp";
-  $plot_span[$num] = 5;
-  $plot_inc[$num] = 1;
+  $plot_span[$num] = 10;
+  $plot_inc[$num] = 2;
 
   $num++;
   $plot_xaxis[$num] = "Oil Temperature (\{/Symbol \260\}F)";

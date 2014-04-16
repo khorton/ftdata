@@ -14,7 +14,7 @@
   $default_page_label = "Complete Flight Data";
 
   $num = 1;
-  $plot_xaxis[$num] = "Baro Altitude (ft)";
+  $plot_xaxis[$num] = "Pressure Altitude (ft)";
   $plot_data[$num] = "Baro Altitude";
   $plot_span[$num] = 1000;
   $plot_inc[$num] = 500;
