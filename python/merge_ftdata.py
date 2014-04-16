@@ -401,6 +401,7 @@ print 'Doing the initial setup work.  This phase takes a few seconds.'
 file_name, data_rate, output_dir, gns_430_avail = get_options()
 
 device_list = [ 'Discretes', 'D10A', 'EIS4000', 'GNS430']
+#device_list = [ 'D10A', 'EIS4000', 'GNS430']
 number_of_header_lines = 4
 
 # if GNS 430 data is not available, remove it from the device list
