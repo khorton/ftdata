@@ -1,4 +1,4 @@
-#!/sw/bin/perl
+#!/usr/bin/perl
 #
 # Script to create RV-8 flight test data plots.
 #   Works with the data format merge_ftdata.py.
