@@ -30,15 +30,6 @@
 #          data.  Changed the EIS timeout, and this problem seems to be fixed.
 
 
-# TO DO - CRITICAL - Before using scripts for recording data
-#
-#       1. RV-8 FT Data mysteries to resolve.  View data file RV-8_Data_2007-07-24-1653.txt.
-
-#          a. The data was recorded at the default rate of 4 Hz, but the EFIS (with firmware 3.0.0) only appears at 2 Hz.  Has something changed with this firmware?
-
-#          b. The EIS MP is only at integral values - i.e. no tenths of an inch of MP.  Why?
-#
-# 
 # TO DO - SOMEDAY - Items that do not affect the required functionality
 #
 #       1. Add GUI to select serial ports, as the exact name varies on each
